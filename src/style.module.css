@@ -9,6 +9,7 @@ body {
   background: #eee;
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 .button {
@@ -36,7 +37,8 @@ body {
 .root {
   position: relative;
   padding: 0 24px;
-  height: 100vh;
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
 }
 
 .header {
