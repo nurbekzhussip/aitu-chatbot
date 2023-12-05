@@ -58,7 +58,7 @@ export function App() {
   const [step, setStep] = useState(1);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const interval = setTimeout(() => {
       setStep((prev) => {
         if (prev > 3) {
           return 1;
@@ -67,9 +67,9 @@ export function App() {
       });
     }, 3000);
     return () => {
-      clearInterval(interval);
+      clearTimeout(interval);
     };
-  }, []);
+  }, [step]);
 
   return (
     <div className={styles.root}>
