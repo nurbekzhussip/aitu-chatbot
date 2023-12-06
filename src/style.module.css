@@ -40,7 +40,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 0 1.5rem;
-  height: 100dvh;
+  height: 100vh;
 }
 
 .header {
@@ -88,34 +88,34 @@ body {
 .iconWrap {
   display: inline-block;
   background-color: #fff;
-  width: 15.7rem;
-  height: 15.7rem;
-  line-height: 15.7rem;
+  width: 11.7rem;
+  height: 11.7rem;
+  line-height: 11.7rem;
   text-align: center;
   border-radius: 100%;
 }
 
 .iconWrap > img {
-  width: 8.32rem;
-  height: 8.32rem;
+  width: 6.32rem;
+  height: 6.32rem;
   vertical-align: middle;
 }
 
 .aiLoaderWrap > img {
-  width: 12.1rem;
-  height: 12.1rem;
+  width: 9.1rem;
+  height: 9.1rem;
   border-radius: 100%;
 }
 
 .aiLoaderAnimationWrap {
-  width: 20rem;
-  height: 20rem;
+  width: 15rem;
+  height: 15rem;
   overflow: hidden;
 }
 
 .aiLoaderAnimationWrap > img {
-  width: 20rem;
-  height: 20rem;
+  width: 15rem;
+  height: 15rem;
   border-radius: 100%;
 }
 
