@@ -18,6 +18,7 @@ const STEP_CONTENT = {
       className: styles.iconWrap,
       icon: AIPrimaryIcon,
       alt: "icon",
+      title: "Начни говорить",
     },
   },
   2: {
@@ -29,6 +30,7 @@ const STEP_CONTENT = {
       imgClassName: styles.rotate,
       icon: AILoaderIcon,
       alt: "icon",
+      title: "Принимаю обращение",
     },
   },
   3: {
@@ -40,6 +42,7 @@ const STEP_CONTENT = {
       imgClassName: styles.rotateAndPulse,
       icon: AILoaderIcon,
       alt: "icon",
+      title: "",
     },
   },
   4: {
@@ -50,6 +53,7 @@ const STEP_CONTENT = {
       className: `${styles.iconWrap} ${styles.moveInCircle}`,
       icon: AIPrimaryIcon,
       alt: "icon",
+      title: "",
     },
   },
 };
@@ -83,14 +87,19 @@ export function App() {
         <h5>ChatBot-1</h5>
       </div>
       <div className={styles.main}>
-        <div className={STEP_CONTENT[step].main.className}>
-          <img
-            src={STEP_CONTENT[step].main.icon}
-            alt={STEP_CONTENT[step].main.alt}
-            width="250"
-            height="250"
-            className={STEP_CONTENT[step].main.imgClassName}
-          />
+        <div>
+          <div>
+            <div className={STEP_CONTENT[step].main.className}>
+              <img
+                src={STEP_CONTENT[step].main.icon}
+                alt={STEP_CONTENT[step].main.alt}
+                width="250"
+                height="250"
+                className={STEP_CONTENT[step].main.imgClassName}
+              />
+            </div>
+          </div>
+          <h6>{STEP_CONTENT[step].main.title}</h6>
         </div>
       </div>
       <div className={styles.footer}>
@@ -104,7 +113,7 @@ const FooterContent = ({ step }) => {
   if (step === 1) {
     return (
       <>
-        <h6>Начни говорить</h6>
+        {/* <h6>Начни говорить</h6> */}
         <div className={styles.footerAnimation}>
           <div>
             <div className={styles.loaderCircle}>
@@ -119,7 +128,7 @@ const FooterContent = ({ step }) => {
   } else if (step === 2) {
     return (
       <>
-        <h6>Принимаю обращение</h6>
+        {/* <h6>Принимаю обращение</h6> */}
         <div className={styles.footerAnimation}>
           <div className={styles.button}>
             <div className={`${styles.pulseOutline} ${styles.pulse1}`}></div>
