@@ -36,7 +36,7 @@ body {
 
 .root {
   position: relative;
-  padding: 0 24px;
+  padding: 0 1.5rem;
   height: 100dvh; /* Fallback for browsers that do not support Custom Properties */
   /* height: calc(var(--vh, 1vh) * 100); */
 }
@@ -45,7 +45,7 @@ body {
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 20px 10px;
+  padding: 1.24rem 0.62rem;
 }
 
 .header > h5 {
@@ -65,34 +65,34 @@ body {
 
 .iconWrap {
   background-color: #fff;
-  width: 250px;
-  height: 250px;
-  line-height: 250px;
+  width: 15.7rem;
+  height: 15.7rem;
+  line-height: 15.7rem;
   text-align: center;
   border-radius: 100%;
 }
 
 .iconWrap > img {
-  width: 134px;
-  height: 134px;
+  width: 8.32rem;
+  height: 8.32rem;
   vertical-align: middle;
 }
 
 .aiLoaderWrap > img {
-  width: 194px;
-  height: 194px;
+  width: 12.1rem;
+  height: 12.1rem;
   border-radius: 100%;
 }
 
 .aiLoaderAnimationWrap {
-  width: 320px;
-  height: 320px;
+  width: 20rem;
+  height: 20rem;
   overflow: hidden;
 }
 
 .aiLoaderAnimationWrap > img {
-  width: 320px;
-  height: 320px;
+  width: 20rem;
+  height: 20rem;
   border-radius: 100%;
 }
 
@@ -125,7 +125,7 @@ body {
 }
 
 .footerAnimation {
-  min-height: 190px;
+  min-height: 11.875rem;
   display: flex;
   align-items: center;
   justify-content: center;
