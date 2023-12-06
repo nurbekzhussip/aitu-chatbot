@@ -330,7 +330,7 @@ body {
 @keyframes rotateAndPulse {
   0% {
     transform-origin: center center;
-    transform: rotate(-360deg) scale(1);
+    transform: rotate(-360deg) scale(1.1);
   }
   10% {
     transform-origin: center center;
@@ -338,7 +338,7 @@ body {
   }
   20% {
     transform-origin: center center;
-    transform: rotate(-216deg) scale(1);
+    transform: rotate(-216deg) scale(1.1);
   }
   30% {
     transform-origin: center center;
@@ -346,7 +346,7 @@ body {
   }
   40% {
     transform-origin: center center;
-    transform: rotate(-72deg) scale(1);
+    transform: rotate(-72deg) scale(1.1);
   }
   50% {
     transform-origin: center center;
@@ -354,7 +354,7 @@ body {
   }
   60% {
     transform-origin: center center;
-    transform: rotate(72deg) scale(1);
+    transform: rotate(72deg) scale(1.1);
   }
   70% {
     transform-origin: center center;
@@ -362,7 +362,7 @@ body {
   }
   80% {
     transform-origin: center center;
-    transform: rotate(216deg) scale(1);
+    transform: rotate(216deg) scale(1.1);
   }
   90% {
     transform-origin: center center;
@@ -370,7 +370,7 @@ body {
   }
   100% {
     transform-origin: center center;
-    transform: rotate(360deg) scale(1);
+    transform: rotate(360deg) scale(1.1);
   }
 }
 
