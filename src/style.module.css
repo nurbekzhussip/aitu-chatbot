@@ -10,7 +10,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .button {
@@ -45,12 +45,12 @@ body {
 .header {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 1.25rem;
   padding: 1.24rem 0.62rem;
 }
 
 .header > h5 {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -118,7 +118,7 @@ body {
 }
 
 .footer > h6 {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
   line-height: 150%;
   letter-spacing: -1px;
@@ -135,7 +135,7 @@ body {
 .footerAnimation > div > h6 {
   color: #b8bdc6;
   text-align: center;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
   line-height: 150%;
   letter-spacing: -1px;
@@ -184,13 +184,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .loaderCircle > span {
   background-color: #b8bdc6;
-  height: 12px;
-  width: 12px;
+  height: 0.75rem;
+  width: 0.75rem;
   border-radius: 100%;
   animation-name: circleLoader;
   animation-duration: 500ms;
@@ -200,8 +200,8 @@ body {
 }
 
 .loaderCircle > span:nth-child(2) {
-  height: 9px;
-  width: 9px;
+  height: 0.563rem;
+  width: 0.563rem;
   animation-name: circleLoader2;
   animation-duration: 500ms;
   animation-direction: alternate;
@@ -211,7 +211,7 @@ body {
 
 .loaderProgress {
   display: block;
-  height: 6px;
+  height: 0.375rem;
   width: 10.344rem;
   background: no-repeat linear-gradient(#b8bdc6 0 0),
     no-repeat linear-gradient(#b8bdc6 0 0), #e1e2e3;
@@ -221,7 +221,7 @@ body {
 
 .loaderBars {
   position: relative;
-  width: 48px;
+  width: 3rem;
   margin-left: auto;
   margin-right: auto;
 }
@@ -231,20 +231,20 @@ body {
   top: 50%;
   bottom: 50%;
   transform: translateY(-50%);
-  width: 6px;
+  width: 0.375rem;
   background-color: gray;
-  border-radius: 99px;
+  border-radius: 6.188rem;
   opacity: 0.25;
 }
 
 .loaderBars > div:nth-child(2n) {
-  height: 32px;
+  height: 2rem;
   animation: scale2 1s infinite;
   animation-delay: 0.4s;
 }
 
 .loaderBars > div:nth-child(2n + 1) {
-  height: 16px;
+  height: 1rem;
   animation: scale 500ms infinite;
   animation-delay: 0.2s;
 }
@@ -253,16 +253,16 @@ body {
   left: 0;
 }
 .loaderBars > div:nth-child(2) {
-  left: 10px;
+  left: 1rem;
 }
 .loaderBars > div:nth-child(3) {
-  left: 20px;
+  left: 2rem;
 }
 .loaderBars > div:nth-child(4) {
-  left: 30px;
+  left: 3rem;
 }
 .loaderBars > div:nth-child(5) {
-  left: 40px;
+  left: 4rem;
 }
 
 @keyframes pulseSecondary {
@@ -409,28 +409,28 @@ body {
 
 @keyframes scale {
   50% {
-    height: 24px;
+    height: 1.5rem;
   }
   100% {
-    height: 16px;
+    height: 1rem;
   }
 }
 
 @keyframes scale2 {
   50% {
-    height: 58px;
+    height: 3.625rem;
   }
   100% {
-    height: 32px;
+    height: 2rem;
   }
 }
 
 @keyframes moveInCircle {
   0% {
-    transform: rotate(0deg) translateY(8px) rotate(0deg);
+    transform: rotate(0deg) translateY(0.5rem) rotate(0deg);
   }
 
   100% {
-    transform: rotate(360deg) translateY(8px) rotate(-360deg);
+    transform: rotate(360deg) translateY(0.5rem) rotate(-360deg);
   }
 }
