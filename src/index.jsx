@@ -84,7 +84,7 @@ export function App() {
           width="45"
           height="45"
         />
-        <h5>ChatBot-1</h5>
+        <h5>ChatBot</h5>
       </div>
       <div className={styles.main}>
         <div>
