@@ -10,6 +10,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+  font-size: 14px;
 }
 
 .button {
@@ -142,8 +143,8 @@ body {
 }
 
 .pulseOutline {
-  width: 96px;
-  height: 96px;
+  width: 6rem;
+  height: 6rem;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -169,10 +170,10 @@ body {
 
 .pulseMicrophone {
   background-color: #4e77fb;
-  width: 96px;
-  height: 96px;
-  line-height: 96px;
-  border-radius: 96px;
+  width: 6rem;
+  height: 6rem;
+  line-height: 6rem;
+  border-radius: 6rem;
 }
 
 .pulseMicrophone > img {
@@ -211,7 +212,7 @@ body {
 .loaderProgress {
   display: block;
   height: 6px;
-  width: 165px;
+  width: 10.344rem;
   background: no-repeat linear-gradient(#b8bdc6 0 0),
     no-repeat linear-gradient(#b8bdc6 0 0), #e1e2e3;
   background-size: 60% 100%;
