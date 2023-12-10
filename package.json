@@ -7,7 +7,9 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"preact": "^10.13.1"
+		"extendable-media-recorder": "^9.1.5",
+		"preact": "^10.13.1",
+		"react-use-websocket": "^4.5.0"
 	},
 	"devDependencies": {
 		"@preact/preset-vite": "^2.5.0",
