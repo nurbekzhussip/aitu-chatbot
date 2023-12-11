@@ -33,7 +33,22 @@ const WebsocketComponent = () => {
 };
 
 export function App() {
-  const [step, setStep] = useState(5);
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStep((step) => {
+        if (step > 4) {
+          return 1;
+        }
+        return step + 1;
+      });
+    }, 3000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const getStepContent = useCallback((step) => {
     switch (step) {
