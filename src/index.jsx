@@ -1,54 +1,64 @@
 import { render } from "preact";
 import { useState, useEffect, useRef, useCallback } from "preact/hooks";
-import useWebSocket from "react-use-websocket";
 import AIPrimaryIcon from "./assets/icon_ai_primary.png";
 import AIBodyPrimaryIcon from "./assets/icon_ai_body.png";
 import AISecondaryIcon from "./assets/icon_ai_secondary.png";
 import AILoaderIcon from "./assets/icon_ai_loader.png";
 import MicrophoneIcon from "./assets/icon_microphone.png";
 import AIMouseGIF from "./assets/icon_mouse.gif";
+import AudioRecorder from "./entities/AudioRecorder/ui";
 
 import styles from "./style.module.css";
 
-const WebsocketComponent = () => {
-  const { sendMessage, lastMessage, readyState, getWebSocket } = useWebSocket(
-    "wss://echo.websocket.events",
-    {
-      onOpen: () => console.log("opened"),
-      onClose: () => console.log("onClose"),
-      onMessage: (message) => console.log("onMessage: ", message),
-      onError: () => console.log("onError"),
-    }
-  );
-
-  const handleClick = () => {
-    sendMessage("Abracadabra");
-  };
-
-  const handleClose = () => {
-    getWebSocket().close();
-  };
-
-  return null;
-};
-
 export function App() {
   const [step, setStep] = useState(0);
+  const [question, setQuestion] = useState("");
+  const [result, setResult] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setStep((step) => {
-        if (step > 4) {
+      setStep((prev) => {
+        if (prev > 4) {
           return 1;
         }
-        return step + 1;
+
+        return prev + 1;
       });
     }, 3000);
 
     return () => {
-      clearInterval(interval);
+      setInterval(interval);
     };
   }, []);
+
+  const handleMessage = (message) => {
+    console.log("m", message);
+
+    if (message === "listening") {
+      setQuestion("");
+      setResult("");
+      setStep(1);
+    } else if (message === "silence") {
+      setStep(2);
+    } else if (message === "processing") {
+      setStep(3);
+    } else if (message.includes("Ваш текст:")) {
+      const response = message;
+      response.replace("Ваш текст:");
+
+      setQuestion(response);
+      setStep(4);
+      console.log({ response });
+    }
+  };
+
+  const handleReset = () => {
+    setStep(0);
+  };
+
+  const handleError = () => {
+    setStep(5);
+  };
 
   const getStepContent = useCallback((step) => {
     switch (step) {
@@ -157,14 +167,20 @@ export function App() {
       </div>
       <div className={styles.main}>{getStepContent(step)}</div>
       <div className={styles.footer}>
-        {/* <AudioRecorder /> */}
-        <FooterContent step={step} />
+        {/* {step < 4 && (
+          <AudioRecorder
+            isStopSending={step === 3}
+            handleMessage={handleMessage}
+            handleError={handleError}
+          />
+        )} */}
+        <FooterContent step={step} handleReset={handleReset} />
       </div>
     </div>
   );
 }
 
-const FooterContent = ({ step }) => {
+const FooterContent = ({ step, handleReset }) => {
   if (step <= 1) {
     return (
       <>
@@ -201,7 +217,7 @@ const FooterContent = ({ step }) => {
     );
   } else if (step === 4) {
     return (
-      <div>
+      <div onClick={handleReset}>
         <h6>Нажми, чтобы остановить</h6>
         <div className={styles.loaderBars}>
           <div></div>

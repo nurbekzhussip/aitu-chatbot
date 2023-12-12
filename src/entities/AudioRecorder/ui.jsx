@@ -1,105 +1,83 @@
 import { render } from "preact";
 import { useState, useEffect } from "preact/hooks";
-import { MediaRecorder } from "extendable-media-recorder";
+import useWebSocket from "react-use-websocket";
 
-const stream = await navigator.mediaDevices.getUserMedia({
-  audio: true,
-});
+const convertAudioBufferToPCM = (interleavedData) => {
+  const length = interleavedData.length;
+  const outputData = new Int16Array(length);
 
-const audioContext = new AudioContext({ sampleRate: 16000 });
-const { sampleRate } = audioContext;
-const inputNode = audioContext.createMediaStreamSource(stream);
-
-// const mediaStreamAudioSourceNode = new MediaStreamAudioSourceNode(
-//   audioContext,
-//   { mediaStream: stream }
-// );
-
-// Set the buffer size based on your requirements
-const targetSize = 960; // 16k (frame rate) * 0.03s (30 ms) = 480 frames = 480 * 2 bytes (16bit pcm) = 960 bytes to send
-const bufferSize = 1024; // here need value to be a power of 2,
-const numChannels = 1;
-
-const audioBuffer = audioContext.createBuffer(
-  numChannels,
-  bufferSize,
-  sampleRate
-);
-
-const scriptNode = audioContext.createScriptProcessor(
-  bufferSize,
-  numChannels,
-  numChannels
-);
-
-const mediaStreamAudioDestinationNode = new MediaStreamAudioDestinationNode(
-  audioContext,
-  {
-    channelCount: numChannels,
+  for (let i = 0; i < length; i++) {
+    outputData[i] = Math.min(1.0, interleavedData[i]) * 0x7fff; // Convert to 16-bit PCM
   }
-);
-mediaStreamAudioSourceNode.connect(mediaStreamAudioDestinationNode);
-const mediaRecorder = new MediaRecorder(mediaStreamAudioDestinationNode.stream);
+  return outputData.buffer;
+};
 
-const AudioRecorder = () => {
-  const [recording, setRecording] = useState(false);
-  const [mediaRecorderState, setMediaRecorderState] = useState(null);
+const AudioRecorder = ({ isStopSending, handleMessage, handleError }) => {
+  const { sendMessage, lastMessage, readyState, getWebSocket } = useWebSocket(
+    "ws://10.219.89.249:8080",
+    {
+      onOpen: () => console.log("onOpen"),
+      onClose: () => console.log("onClose"),
+      onMessage: (message) => {
+        handleMessage(message?.data);
+        console.log("onMessage: ", message);
+      },
+      onError: () => {
+        handleError();
+        console.log("onError");
+      },
+    }
+  );
+
+  console.log({ readyState });
+
+  const handleSendMessage = (data) => {
+    if (!isStopSending) {
+      sendMessage(data);
+    }
+  };
 
   useEffect(() => {
-    console.log({ sampleRate });
+    navigator.mediaDevices
+      .getUserMedia({ audio: true })
+      .then(function (stream) {
+        // Access the audio stream from the microphone
+        const audioContext = new AudioContext({
+          sampleRate: 16000,
+        });
+        const audioInput = audioContext.createMediaStreamSource(stream);
+
+        // Create a ScriptProcessorNode to process audio data
+        const bufferSize = 512;
+        const numChannels = 1;
+
+        const scriptNode = audioContext.createScriptProcessor(
+          bufferSize,
+          numChannels,
+          numChannels
+        );
+
+        // Connect the audio input to the ScriptProcessorNode
+        audioInput.connect(scriptNode);
+        scriptNode.connect(audioContext.destination);
+
+        // Handle audio data when available
+        scriptNode.onaudioprocess = function (event) {
+          const audioData = event.inputBuffer.getChannelData(0); // Get audio buffer data
+          const raw_pcm_data = convertAudioBufferToPCM(audioData);
+          handleSendMessage(raw_pcm_data); // Send audio buffer through WebSocket
+        };
+      })
+      .catch(function (err) {
+        console.error("Error accessing microphone:", err);
+      });
+
+    return () => {
+      getWebSocket().close();
+    };
   }, []);
-  const startRecording = async () => {
-    try {
-      const audioChunks = [];
 
-      mediaRecorder.ondataavailable = (e) => {
-        audioChunks.push(e.data);
-        if (mediaRecorder.state == "inactive") {
-          let blob = new Blob(audioChunks, { type: "audio/x-mpeg-3" });
-          setMediaRecorderState(blob);
-        }
-      };
-
-      mediaRecorder.start();
-      setRecording(true);
-
-      // const recorder = new ExtendableMediaRecorder(stream, {
-      //   mimeType: "audio/wav", // Adjust the MIME type as needed
-      // });
-    } catch (error) {
-      console.error("Error accessing media devices:", error);
-    }
-  };
-
-  const stopRecording = () => {
-    if (mediaRecorder) {
-      mediaRecorder.stop();
-      setRecording(false);
-    }
-  };
-
-  const playRecordedAudio = () => {
-    console.log({ mediaRecorderState });
-    if (mediaRecorderState) {
-      const audioURL = URL.createObjectURL(mediaRecorderState);
-
-      // Create an audio element dynamically to play the recorded audio
-      const audio = new Audio(audioURL);
-      audio.play();
-    } else {
-      console.log("No recorded audio available");
-    }
-  };
-
-  return (
-    <div>
-      <h2>Audio Recorder</h2>
-      <button onClick={recording ? stopRecording : startRecording}>
-        {recording ? "Stop Recording" : "Start Recording"}
-      </button>
-      <button onClick={playRecordedAudio}>Play Recorded Audio</button>
-    </div>
-  );
+  return <></>;
 };
 
 export default AudioRecorder;
