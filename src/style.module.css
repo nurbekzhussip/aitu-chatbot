@@ -55,7 +55,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 0 1.5rem;
-  height: 100vh;
+  /* height: 100vh; */
   height: 100dvh;
 }
 

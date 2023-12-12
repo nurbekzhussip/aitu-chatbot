@@ -11,6 +11,7 @@ import AudioRecorder from "./entities/AudioRecorder/ui";
 import styles from "./style.module.css";
 
 export function App() {
+  console.log("1.0.0");
   const [step, setStep] = useState(0);
   const [question, setQuestion] = useState("");
   const [result, setResult] = useState("");
